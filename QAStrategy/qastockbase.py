@@ -150,7 +150,7 @@ class QAStrategyStockBase(QAStrategyCTABase):
         port = user.new_portfolio(self.portfolio)
         self.acc = port.new_accountpro(
             account_cookie=self.strategy_id, init_cash=self.init_cash, market_type=self.market_type)
-        #self.positions = self.acc.get_position(self.code)
+        self.positions = self.acc.get_position(self.code)
 
         print(self.acc)
 
@@ -190,8 +190,12 @@ class QAStrategyStockBase(QAStrategyCTABase):
 
     def send_order(self,  direction='BUY', offset='OPEN', code=None, price=3925, volume=10, order_id='',):
 
-        towards = eval('ORDER_DIRECTION.{}_{}'.format(direction, offset))
+        towards = eval('ORDER_DIRECTION.{}'.format(direction))#股票只有buy和sell，offset是不用的
+        # towards = eval('ORDER_DIRECTION.{}_{}'.format(direction, offset))
         order_id = str(uuid.uuid4()) if order_id == '' else order_id
+
+        if code is None:#如果code为空
+            code=self.code
 
         if self.market_type == QA.MARKET_TYPE.STOCK_CN:
             """

@@ -2,8 +2,10 @@ from QAStrategy import QAStrategyCTABase
 import QUANTAXIS as QA
 import pprint
 
+from QAStrategy.qastockbase import QAStrategyStockBase
 
-class MACD(QAStrategyCTABase):
+
+class MACDStock(QAStrategyStockBase):
 
     def on_bar(self, bar):
 
@@ -37,6 +39,6 @@ class MACD(QAStrategyCTABase):
 
 
 if __name__ == '__main__':
-    MACD = MACD(code='RBL9', frequence='1min',
-         strategy_id='1dds1s2d-7902-4a85-adb2-fbac4bb977fe11',start='2019-10-01', end='2019-11-01')
+    MACD = MACDStock(code='000001', frequence='day',
+         strategy_id='1dds1s2d-7902-4a85-adb2-fbac4bb977fe',start='2019-04-01', end='2019-5-01')
     MACD.run_backtest()
